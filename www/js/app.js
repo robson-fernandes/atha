@@ -41,10 +41,10 @@ angular.module('starter', ['ionic', 'starter.controllers','ksSwiper','ngStorage'
       templateUrl: 'templates/estudioMaquiagemView.html',
       controller: 'EstudioMaquiagemCtrl'
     })
-    .state('main', {
-      url: '/main',
-      templateUrl: 'templates/main.html',
-      controller: 'MainCtrl'
+    .state('inicio', {
+      url: '/inicio',
+      templateUrl: 'templates/inicioView.html',
+      controller: 'InicioCtrl'
     })
     .state('conclusao', {
       url: '/conclusao',
@@ -52,7 +52,7 @@ angular.module('starter', ['ionic', 'starter.controllers','ksSwiper','ngStorage'
       controller: 'ConclusaoCtrl'
     });
 
-  $urlRouterProvider.otherwise('/selecaoTomPele');
+  $urlRouterProvider.otherwise('/inicio');
 
 });
 

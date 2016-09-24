@@ -16,24 +16,48 @@
 
 
 /**
+ * Tela - Inicial
+ */
+.iconeInicial{
+  width: 80%;
+}
+.titulo{
+
+  text-align: center;
+  color: white;
+  font-size: 48px;
+  font-weight: bold;
+  padding-top: 40px;
+}
+.sub-titulo{
+
+  text-align: center;
+  color: #E91E63;
+  font-size: 22px;
+  font-weight: bold;
+  padding-top: 30px;
+}
+
+/**
  * Tela - Seleção do Tom da Pele
  */
 .size-pele{
-  width: 130px;
+  width: 110px;
 }
 
 /**
  * Tela - Seleção do Cabelo
  */
 .size-cabelo{
-  width: 150px;
+  width: 140px;
+  padding: 10px;
 }
 
 /**
  * Tela - Seleção da Camisa
  */
 .size-camisa{
-  width: 150px;
+  width: 140px;
 }
 
 

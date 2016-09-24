@@ -1,7 +1,10 @@
 app.controller('EstudioMaquiagemCtrl', function($scope, $localStorage,
                                                 PELE_PARDA,
                                                 PELE_BRANCA,
-                                                PELE_NEGRA) {
+                                                PELE_NEGRA,
+                                                CAMISA_AMARELA,
+                                                CAMISA_VERMELHA,
+                                                CAMISA_AZUL) {
 
 
   $scope.$on("$ionicView.afterEnter", function(event, data){
@@ -18,6 +21,17 @@ app.controller('EstudioMaquiagemCtrl', function($scope, $localStorage,
     $("#dollCabeca").css("fill",corPele);
     $("#dollOrelhaDireitaExterno").css("fill",corPele);
     $("#dollOrelhaEsquerdaExterno").css("fill",corPele);
+
+
+    var camisa = null;
+    switch ($localStorage.camisa){
+
+      case CAMISA_AMARELA: camisa = "#efcd00"; break;
+      case CAMISA_VERMELHA: camisa = "#e52238"; break;
+      case CAMISA_AZUL: camisa = "#0053d8"; break;
+    }
+    $("#dollCamisa").css("fill",camisa);
+
 
   });
 
