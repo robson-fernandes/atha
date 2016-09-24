@@ -1,11 +1,7 @@
-// Ionic Starter App
-
-// angular.module is a global place for creating, registering and retrieving Angular modules
-// 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
-// the 2nd parameter is an array of 'requires'
-// 'starter.services' is found in services.js
-// 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers'])
+/**
+ * Configuração do Módulo Principal e Rotas
+ */
+angular.module('starter', ['ionic', 'starter.controllers','ksSwiper','ngStorage'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -21,22 +17,43 @@ angular.module('starter', ['ionic', 'starter.controllers'])
       StatusBar.styleDefault();
     }
   });
-})
+}).config(function($stateProvider, $urlRouterProvider) {
 
-.config(function($stateProvider, $urlRouterProvider) {
-
-  // Ionic uses AngularUI Router which uses the concept of states
-  // Learn more here: https://github.com/angular-ui/ui-router
-  // Set up the various states which the app can be in.
-  // Each state's controller can be found in controllers.js
   $stateProvider
 
+    .state('selecaoTomPele', {
+      url: '/selecaoTomPele',
+      templateUrl: 'templates/selecaoTomPeleView.html',
+      controller: 'SelecaoTomPeleCtrl'
+    })
+    .state('selecaoCabelo', {
+      url: '/selecaoCabelo',
+      templateUrl: 'templates/selecaoCabeloView.html',
+      controller: 'SelecaoCabeloCtrl'
+    })
+    .state('selecaoCamisa', {
+      url: '/selecaoCamisa',
+      templateUrl: 'templates/selecaoCamisaView.html',
+      controller: 'SelecaoCamisaCtrl'
+    })
+    .state('estudioMaquiagem', {
+      url: '/estudioMaquiagem',
+      templateUrl: 'templates/estudioMaquiagemView.html',
+      controller: 'EstudioMaquiagemCtrl'
+    })
     .state('main', {
       url: '/main',
       templateUrl: 'templates/main.html',
       controller: 'MainCtrl'
+    })
+    .state('conclusao', {
+      url: '/conclusao',
+      templateUrl: 'templates/conclusaoView.html',
+      controller: 'ConclusaoCtrl'
     });
 
-  $urlRouterProvider.otherwise('/main');
+  $urlRouterProvider.otherwise('/selecaoTomPele');
 
 });
+
+var app = angular.module('starter.controllers', [])

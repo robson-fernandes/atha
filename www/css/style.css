@@ -1,1 +1,42 @@
-/* Empty. Add your own CSS if you like */
+.content-bg{
+  background: url("../img/background/bgPink.jpg");
+  background-size: 100% 100%;
+}
+
+.balcao{
+  width: 375px;
+  height: 100px;
+  background-size: 100%;
+}
+
+.opcaoAcessorio{
+  width: 100px;
+  height: 100px;
+}
+
+
+/**
+ * Tela - Seleção do Tom da Pele
+ */
+.size-pele{
+  width: 130px;
+}
+
+/**
+ * Tela - Seleção do Cabelo
+ */
+.size-cabelo{
+  width: 150px;
+}
+
+/**
+ * Tela - Seleção da Camisa
+ */
+.size-camisa{
+  width: 150px;
+}
+
+
+.icone-seta{
+  width: 80px;
+}
