@@ -19,8 +19,60 @@ app.controller('SelecaoCabeloCtrl', function($scope, $state, $ionicPopup, $local
 
     $localStorage.cabelo = cabelo;
 
-    var audioRobo = document.getElementById('audioRobo');
-    audioRobo.play();
+
+    var hairVoice = "";
+    if (cabelo == CABELO_ENCARACOLADO) {
+      hairVoice = "cabelo encaracolado"
+
+      $("#cabeloEncaracolado").addClass("glowEffect");
+      $("#cabeloCastanho").removeClass("glowEffect");
+      $("#cabeloPreto").removeClass("glowEffect");
+      $("#cabeloRuivo").removeClass("glowEffect");
+
+    }
+    if (cabelo == CABELO_CASTANHO) {
+      hairVoice = "cabelo castanho"
+
+      $("#cabeloEncaracolado").removeClass("glowEffect");
+      $("#cabeloCastanho").addClass("glowEffect");
+      $("#cabeloPreto").removeClass("glowEffect");
+      $("#cabeloRuivo").removeClass("glowEffect");
+    }
+    if (cabelo == CABELO_PRETO) {
+      hairVoice = "cabelo preto"
+
+
+      $("#cabeloEncaracolado").removeClass("glowEffect");
+      $("#cabeloCastanho").removeClass("glowEffect");
+      $("#cabeloPreto").addClass("glowEffect");
+      $("#cabeloRuivo").removeClass("glowEffect");
+
+    }
+    if (cabelo == CABELO_RUIVO) {
+      hairVoice = "cabelo ruivo"
+
+      $("#cabeloEncaracolado").removeClass("glowEffect");
+      $("#cabeloCastanho").removeClass("glowEffect");
+      $("#cabeloPreto").removeClass("glowEffect");
+      $("#cabeloRuivo").addClass("glowEffect");
+    }
+
+    if (window.cordova) {
+      TTS
+        .speak({
+          text: hairVoice,
+          locale: 'pt-BR',
+          rate: 1.1
+        }, function () {
+        }, function (reason) {
+        });
+    }
+    else{
+      var msg = new SpeechSynthesisUtterance(hairVoice);
+      window.speechSynthesis.speak(msg);
+    }
+
+
   }
 
   /**

@@ -5,10 +5,23 @@ app.controller('InicioCtrl', function($scope, $state) {
    */
   $scope.onClickStart = function(){
 
-    var audioTone = document.getElementById('audioTone');
+    var introVoice = "Olá! Vamos começar a personalizar a boneca!"
+    if (window.cordova) {
+      TTS
+        .speak({
+          text: introVoice,
+          locale: 'pt-BR',
+          rate: 1.1
+        }, function () {
+        }, function (reason) {
+        });
+    }
+    else{
+      var msg = new SpeechSynthesisUtterance(introVoice);
+      window.speechSynthesis.speak(msg);
+    }
 
-      audioTone.play();
-      $state.go("selecaoTomPele");
+    $state.go("selecaoTomPele");
 
   }
 

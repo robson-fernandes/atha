@@ -64,3 +64,38 @@
 .icone-seta{
   width: 80px;
 }
+
+.glowEffect{
+  -webkit-filter: drop-shadow(12px 5px 10px #c939f1);
+}
+
+.cabeloEncaracolado{
+
+  width: 120%;
+  position: absolute;
+  left: -9%;
+  z-index: 300;
+}
+
+.cabeloPreto{
+  width: 100%;
+  position: absolute;
+  left: 6px;
+  top: 19px;
+}
+
+.cabeloCastanho{
+  width: 94%;
+  position: absolute;
+  left: 17px;
+  top: 12px;
+  z-index: 300;
+}
+
+.cabeloRuivo{
+  width: 87%;
+  position: absolute;
+  left: 33px;
+  top: 28px;
+  z-index: 300;
+}

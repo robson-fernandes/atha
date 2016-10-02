@@ -16,8 +16,44 @@ app.controller('SelecaoTomPeleCtrl', function($scope, $state, $ionicPopup, $loca
 
     $localStorage.tomPele = tom;
 
-    var audioRobo = document.getElementById('audioRobo');
-    audioRobo.play();
+    var skinVoice = "";
+    if (tom == PELE_PARDA){
+      skinVoice = "pele parda";
+
+      $("#peleParda").addClass("glowEffect");
+      $("#peleBranca").removeClass("glowEffect");
+      $("#peleNegra").removeClass("glowEffect");
+    }
+    if (tom == PELE_BRANCA){
+      skinVoice = "pele branca"
+
+      $("#peleParda").removeClass("glowEffect");
+      $("#peleBranca").addClass("glowEffect");
+      $("#peleNegra").removeClass("glowEffect");
+    }
+    if (tom == PELE_NEGRA){
+      skinVoice = "pele negra"
+
+      $("#peleParda").removeClass("glowEffect");
+      $("#peleBranca").removeClass("glowEffect");
+      $("#peleNegra").addClass("glowEffect");
+    }
+
+    if (window.cordova) {
+      TTS
+        .speak({
+          text: skinVoice,
+          locale: 'pt-BR',
+          rate: 1.1
+        }, function () {
+        }, function (reason) {
+        });
+    }
+    else{
+      var msg = new SpeechSynthesisUtterance(skinVoice);
+      window.speechSynthesis.speak(msg);
+    }
+
   }
 
   /**
