@@ -51,6 +51,8 @@ app.controller('EstudioMaquiagemCtrl', function($scope, $localStorage, $timeout,
     $("#dollBracoDireito").css("fill",corPele);
     $("#dollPescoco").css("fill",corPele);
 
+    $("#bochechaEsquerda").css("fill",corPele);
+    $("#bochechaDireita").css("fill",corPele);
 
     $("#dollOrelhaDireitaExterno").css("fill",corPele);
     $("#dollOrelhaEsquerdaExterno").css("fill",corPele);
@@ -109,6 +111,76 @@ app.controller('EstudioMaquiagemCtrl', function($scope, $localStorage, $timeout,
       $ionicLoading.hide();
     }, 1500);
 
+
+
+    var element = document.getElementById('grid-snap'),
+      x = 0, y = 0;
+
+    interact(element)
+      .draggable({
+        snap: {
+          targets: [
+            interact.createSnapGrid({ x: 30, y: 30 })
+          ],
+          range: Infinity,
+          relativePoints: [ { x: 0, y: 0 } ]
+        },
+        inertia: true,
+        restrict: {
+          restriction: element.parentNode,
+          elementRect: { top: 0, left: 0, bottom: 1, right: 1 },
+          endOnly: true
+        }
+      })
+      .on('dragmove', function (event) {
+        x += event.dx;
+        y += event.dy;
+
+        event.target.style.webkitTransform =
+          event.target.style.transform =
+            'translate(' + x + 'px, ' + y + 'px)';
+      });
+
+    /**
+     * Drag Zone - Blush
+     */
+    interact('.dropzone').dropzone({
+
+      ondragenter: function (event) {
+        var draggableElement = event.relatedTarget,
+          dropzoneElement = event.target;
+
+        $(draggableElement).removeClass("blushGlowPink").removeClass("blushGlowOrange").removeClass("blushGlowRed");
+
+        var classEffect = $($(dropzoneElement)[0].outerHTML).data("effect");
+        $scope.colorBlush = $($(dropzoneElement)[0].outerHTML).data("color");
+
+        $(draggableElement).addClass(classEffect);
+
+      },
+      ondragleave: function (event) { console.log("Drag Leave"); },
+      ondrop: function (event) { console.log("Drag Drop"); }
+    });
+
+
+    $scope.colorBlush = "";
+
+    /**
+     * Drag Zone - Bochecha Esquerda
+     */
+    interact('.dropzoneBochechaEsquerda').dropzone({
+
+      ondragenter: function (event) {
+
+        $("#bochechaEsquerda").css("fill", $scope.colorBlush);
+        $("#bochechaEsquerda").css("opacity", 0.13);
+
+      },
+      ondragleave: function (event) { console.log("Drag Leave"); },
+      ondrop: function (event) { console.log("Drag Drop"); }
+    });
+
+
   });
 
   /**
@@ -135,26 +207,20 @@ app.controller('EstudioMaquiagemCtrl', function($scope, $localStorage, $timeout,
       $("#BLUSH_ROSA").animate({opacity: '1'},1000);
       $("#BLUSH_LARANJA").animate({opacity: '1'},1200);
       $("#BLUSH_VERMELHO").animate({opacity: '1'},1400);
-
+      $("#PINCEL").animate({opacity: '1'},1400);
       $scope.blushVisible = false;
+
     }
     else{
       $("#BLUSH_ROSA").animate({opacity: '0'},1400);
       $("#BLUSH_LARANJA").animate({opacity: '0'},1200);
       $("#BLUSH_VERMELHO").animate({opacity: '0'},1000);
-
+      $("#PINCEL").animate({opacity: '0'},1000);
       $scope.blushVisible = true;
+
     }
 
   };
 
-  /**
-   * Aplicação do Blush
-   * @param color
-   */
-  $scope.applyBlush = function(color){
-    $("#rostoLadoDireito").css("fill",color);
-    $("#rostoLadoEsquerdo").css("fill",color);
-  }
 
 });

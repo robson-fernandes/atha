@@ -29,6 +29,15 @@
                   <path id="dollOrelhaEsquerdaInterno" d="M493.246,442.898C493.246,442.898 500.671,422.98 508.043,433.246C515.423,443.508 511.683,456.822 500.643,465.85C500.643,465.85 505.64,429.623 493.246,442.898" style="fill:rgb(238,194,164);fill-rule:nonzero;"></path>
                   <path id="dollOrelhaDireitaExterno" d="M164.449,422.427C164.449,422.427 154.086,402.137 142.568,415.877C131.042,429.622 133.305,485.612 169.963,485.679C169.962,485.679 164.611,435.733 164.449,422.427" style="fill: rgb(255, 227, 199); fill-rule: nonzero;"></path>
                   <path id="dollOrelhaDireitaInterno" d="M164.275,442.898C164.275,442.898 156.852,422.98 149.478,433.246C142.103,443.508 145.838,456.822 156.873,465.85C156.873,465.85 151.878,429.623 164.275,442.898" style="fill:rgb(238,194,164);fill-rule:nonzero;"></path>
+
+                  <g  transform="matrix(1,0,0,1,-5,190)">
+
+                       <ellipse id="bochechaEsquerda" class="dropzoneBochechaEsquerda" cx="216.033" cy="338.671" rx="36.268" ry="37.373" style="fill: rgb(255, 227, 199); fill-rule: nonzero; opacity: .13;"/>
+
+                  </g>
+                  <g  transform="matrix(1,0,0,1,227.512,188.301)">
+                    <ellipse id="bochechaDireita" cx="216.033" cy="338.671" rx="36.268" ry="37.373" style="fill: rgb(255, 227, 199); fill-rule: nonzero; opacity: .5;"/>
+                  </g>
               </g>
               <g>
                   <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#_Image1" x="93.486" y="31.105" width="419.172px" height="444.594px"></use>
@@ -64,12 +73,30 @@
     <!-- ========================= -->
     <!-- OPÇÕES DE CADA ACESSÓRIO -->
     <!-- ========================= -->
-    <div id="opcaoAcessorioBlush" style="width: 100%; position: absolute; top: 310px;">
+    <div id="opcaoAcessorioBlush" style="width: 100%; position: absolute; top: 310px; z-index: 9999;">
       <table style="width: 100%;">
         <tr>
-          <td><img id="BLUSH_ROSA" ng-click="applyBlush('#ea68c3')" style="opacity: 0;" src="img/acessorios/blush/rosa.png" class="opcaoAcessorio"></td>
-          <td><img id="BLUSH_LARANJA" ng-click="applyBlush('#ef7929')" style="opacity: 0;" src="img/acessorios/blush/laranja.png" class="opcaoAcessorio"></td>
-          <td><img id="BLUSH_VERMELHO" ng-click="applyBlush('#e54642')" style="opacity: 0;" src="img/acessorios/blush/vermelho.png" class="opcaoAcessorio"></td>
+          <td>
+            <div data-effect="blushGlowPink" data-color="#ea68c3" class="dropzone">
+               <img id="BLUSH_ROSA"  style="opacity: 0;" src="img/acessorios/blush/rosa.png" class="opcaoAcessorio">
+            </div>
+            <!-- Pincel -->
+            <div id="grid-snap">
+              <img id="PINCEL" style="opacity: 0;"  src="img/acessorios/pincelOpen.png" class="opcaoAcessorio">
+            </div>
+
+          </td>
+          <td>
+            <div data-effect="blushGlowOrange" data-color="#ef7929" class="dropzone">
+              <img id="BLUSH_LARANJA"  style="opacity: 0;" src="img/acessorios/blush/laranja.png" class="opcaoAcessorio">
+            </div>
+          </td>
+
+          <td>
+            <div data-effect="blushGlowRed" data-color="#e54642" class="dropzone">
+              <img id="BLUSH_VERMELHO"  style="opacity: 0;" src="img/acessorios/blush/vermelho.png" class="opcaoAcessorio">
+            </div>
+          </td>
         </tr>
       </table>
     </div>
@@ -93,9 +120,10 @@
         <ks-swiper-slide class="swiper-slide"
                          ng-repeat="acessorio in collectionAcessorios">
           <div style="margin-left: 20px; padding-right: 10px">
-            <img ng-click="onClickAcessorio(acessorio)"
-                 ng-src="{{acessorio.image}}"
-                 style="width: 100px" >
+
+              <img ng-click="onClickAcessorio(acessorio)"
+                   ng-src="{{acessorio.image}}"
+                   style="width: 100px" >
           </div>
         </ks-swiper-slide>
       </ks-swiper-container>

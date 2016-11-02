@@ -99,3 +99,19 @@
   top: 28px;
   z-index: 300;
 }
+
+
+.blushGlowPink{
+  -webkit-filter: drop-shadow(12px 5px 10px #ea68c3);
+}
+
+.blushGlowOrange{
+  -webkit-filter: drop-shadow(12px 5px 10px #ef7929);
+}
+
+.blushGlowRed{
+  -webkit-filter: drop-shadow(12px 5px 10px #e54642);
+}
+
+
+
