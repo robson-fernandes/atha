@@ -230,6 +230,10 @@ app.controller('EstudioMaquiagemCtrl', function($scope, $localStorage, $timeout,
         if ( $scope.colorBlush != "") {
           $("#bochechaDireita").css("fill", $scope.colorBlush);
           $("#bochechaDireita").css("opacity", 0.13);
+
+          $timeout(function () {
+            $scope.voiceSpeech("Você está linda!");
+          }, 500);
         }
 
       },
@@ -250,6 +254,12 @@ app.controller('EstudioMaquiagemCtrl', function($scope, $localStorage, $timeout,
         if ( $scope.colorBatom != "") {
           $("#labioCima").css("fill", $scope.colorBatom);
           $("#labioBaixo").css("fill", $scope.colorBatom);
+
+
+          $timeout(function () {
+            $scope.voiceSpeech("Este batom ficou lindo em você!");
+          }, 500);
+
         }
 
       },
@@ -257,22 +267,6 @@ app.controller('EstudioMaquiagemCtrl', function($scope, $localStorage, $timeout,
       ondrop: function (event) { }
     });
 
-
-    /**
-     * Drag Zone - Labio Baixo
-     */
-    /*
-    interact('.dropzoneLabioBaixo').dropzone({
-      ondragenter: function (event) {
-
-        if ( $scope.colorBatom != "") {
-          $("#labioBaixo").css("fill", $scope.colorBatom);
-        }
-
-      },
-      ondragleave: function (event) {  },
-      ondrop: function (event) { }
-    });*/
 
   }
 
@@ -285,13 +279,17 @@ app.controller('EstudioMaquiagemCtrl', function($scope, $localStorage, $timeout,
   $scope.collectionAcessorios = [
     {id:1, nome:"Blush", image:"img/acessorios/blushOpen.png"},
     {id:2, nome:"Batom", image:"img/acessorios/batomOpen.png"},
-    {id:3, nome:"Pincel", image:"img/acessorios/pincelOpen.png"},
-    {id:4, nome:"Base", image:"img/acessorios/baseOpen.png"},
-    {id:5, nome:"Blush", image:"img/acessorios/blushOpen.png"}
+    {id:4, nome:"Oculos", image:"img/acessorios/oculosOpen.png"},
+    {id:3, nome:"Brinco", image:"img/acessorios/brincoOpen.png"},
+    {id:5, nome:"Colar", image:"img/acessorios/colarOpen.png"},
+    {id:1, nome:"Blush", image:"img/acessorios/blushOpen.png"}
   ];
 
   $scope.blushVisible = true;
   $scope.batomVisible = true;
+  $scope.oculosVisible = true;
+  $scope.brincoVisible = true;
+  $scope.colarVisible = true;
 
   /**
    * Método para Ap
@@ -300,31 +298,15 @@ app.controller('EstudioMaquiagemCtrl', function($scope, $localStorage, $timeout,
   $scope.onClickAcessorio = function(acessorio){
 
     if ($scope.blushVisible && acessorio.nome == "Blush"){
+
+      $("#opcaoAcessorioBlush").show();
       $("#BLUSH_ROSA").animate({opacity: '1'},1000);
       $("#BLUSH_LARANJA").animate({opacity: '1'},1200);
       $("#BLUSH_VERMELHO").animate({opacity: '1'},1400);
       $("#PINCEL").animate({opacity: '1'},1400);
       $scope.blushVisible = false;
 
-    }
-    else  if ($scope.batomVisible && acessorio.nome == "Batom"){
-
-      $("#BATOM_ROSA").animate({opacity: '1'},1000);
-      $("#BATOM_LARANJA").animate({opacity: '1'},1100);
-      $("#BATOM_VERMELHO").animate({opacity: '1'},1200);
-      $("#BATOM_ROXO").animate({opacity: '1'},1300);
-      $("#BATOM").animate({opacity: '1'},1400);
-      $scope.batomVisible = false;
-
-    }
-    else{
-
-      $("#BLUSH_ROSA").animate({opacity: '0'},1400);
-      $("#BLUSH_LARANJA").animate({opacity: '0'},1200);
-      $("#BLUSH_VERMELHO").animate({opacity: '0'},1000);
-      $("#PINCEL").animate({opacity: '0'},1000);
-      $scope.blushVisible = true;
-
+      $("#opcaoAcessorioBatom").hide();
       $("#BATOM_ROSA").animate({opacity: '0'},1000);
       $("#BATOM_LARANJA").animate({opacity: '0'},1100);
       $("#BATOM_VERMELHO").animate({opacity: '0'},1200);
@@ -333,9 +315,108 @@ app.controller('EstudioMaquiagemCtrl', function($scope, $localStorage, $timeout,
       $scope.batomVisible = true;
 
     }
+    else  if ($scope.batomVisible && acessorio.nome == "Batom"){
+
+      $("#opcaoAcessorioBatom").show();
+      $("#BATOM_ROSA").animate({opacity: '1'},1000);
+      $("#BATOM_LARANJA").animate({opacity: '1'},1100);
+      $("#BATOM_VERMELHO").animate({opacity: '1'},1200);
+      $("#BATOM_ROXO").animate({opacity: '1'},1300);
+      $("#BATOM").animate({opacity: '1'},1400);
+      $scope.batomVisible = false;
+
+      $("#opcaoAcessorioBlush").hide();
+      $("#BLUSH_ROSA").animate({opacity: '0'},1400);
+      $("#BLUSH_LARANJA").animate({opacity: '0'},1200);
+      $("#BLUSH_VERMELHO").animate({opacity: '0'},1000);
+      $("#PINCEL").animate({opacity: '0'},1000);
+      $scope.blushVisible = true;
+
+
+    }
+    else  if ($scope.oculosVisible && acessorio.nome == "Oculos"){
+
+      $scope.voiceSpeech("Lindos Óculos!");
+      $("#oculosModeloUm").css("opacity", 1);
+      $scope.oculosVisible = false;
+
+    }
+    else  if ($scope.brincoVisible && acessorio.nome == "Brinco"){
+
+      $scope.voiceSpeech("Amei os brincos!");
+      $("#brincoEsquerdo").css("opacity", 1);
+      $("#brincoDireito").css("opacity", 1);
+      $scope.brincoVisible = false;
+
+    }
+    else  if ($scope.colarVisible && acessorio.nome == "Colar"){
+
+      $scope.voiceSpeech("Ficou ótima com esse colar!");
+      $("#colar").css("opacity", 1);
+      $scope.colarVisible = false;
+
+    }
+    else{
+
+      if (acessorio.nome == "Blush"){
+
+        $("#opcaoAcessorioBlush").hide();
+        $("#BLUSH_ROSA").animate({opacity: '0'},1400);
+        $("#BLUSH_LARANJA").animate({opacity: '0'},1200);
+        $("#BLUSH_VERMELHO").animate({opacity: '0'},1000);
+        $("#PINCEL").animate({opacity: '0'},1000);
+        $scope.blushVisible = true;
+      }
+      if (acessorio.nome == "Batom"){
+
+        $("#opcaoAcessorioBatom").show();
+        $("#BATOM_ROSA").animate({opacity: '0'},1000);
+        $("#BATOM_LARANJA").animate({opacity: '0'},1100);
+        $("#BATOM_VERMELHO").animate({opacity: '0'},1200);
+        $("#BATOM_ROXO").animate({opacity: '0'},1300);
+        $("#BATOM").animate({opacity: '0'},1400);
+        $scope.batomVisible = true;
+      }
+
+      if (acessorio.nome == "Oculos") {
+        $("#oculosModeloUm").css("opacity", 0);
+        $scope.oculosVisible = true;
+      }
+
+      if (acessorio.nome == "Brinco") {
+        $("#brincoEsquerdo").css("opacity", 0);
+        $("#brincoDireito").css("opacity", 0);
+        $scope.brincoVisible = true;
+      }
+
+      if (acessorio.nome == "Colar") {
+        $("#colar").css("opacity", 0);
+        $scope.colarVisible = true;
+      }
+
+    }
 
 
   };
+
+  $scope.voiceSpeech = function(voice){
+
+    if (window.cordova) {
+      TTS
+        .speak({
+          text: voice,
+          locale: 'pt-BR',
+          rate: 1.1
+        }, function () {
+        }, function (reason) {
+        });
+    }
+    else{
+      var msg = new SpeechSynthesisUtterance(voice);
+      window.speechSynthesis.speak(msg);
+    }
+
+  }
 
 
 });
