@@ -111,11 +111,13 @@ app.controller('EstudioMaquiagemCtrl', function($scope, $localStorage, $timeout,
       $ionicLoading.hide();
     }, 1500);
 
+    $scope.configDragAndDrop();
 
+  });
 
-    var element = document.getElementById('grid-snap'),
-      x = 0, y = 0;
+  $scope.createDragedElement = function(element){
 
+    x = 0, y = 0;
     interact(element)
       .draggable({
         snap: {
@@ -140,11 +142,20 @@ app.controller('EstudioMaquiagemCtrl', function($scope, $localStorage, $timeout,
           event.target.style.transform =
             'translate(' + x + 'px, ' + y + 'px)';
       });
+  },
+
+  $scope.configDragAndDrop = function(){
+
+    var dragPincel = document.getElementById('dragPincel');
+    var dragBatom = document.getElementById('dragBatom');
+
+    $scope.createDragedElement(dragPincel);
+    $scope.createDragedElement(dragBatom);
 
     /**
      * Drag Zone - Blush
      */
-    interact('.dropzone').dropzone({
+    interact('.dropzoneBlush').dropzone({
 
       ondragenter: function (event) {
         var draggableElement = event.relatedTarget,
@@ -162,18 +173,21 @@ app.controller('EstudioMaquiagemCtrl', function($scope, $localStorage, $timeout,
       ondrop: function (event) { console.log("Drag Drop"); }
     });
 
-
-    $scope.colorBlush = "";
-
     /**
-     * Drag Zone - Bochecha Esquerda
+     * Drag Zone - Batom
      */
-    interact('.dropzoneBochechaEsquerda').dropzone({
+    interact('.dropzoneBatom').dropzone({
 
       ondragenter: function (event) {
+        var draggableElement = event.relatedTarget,
+          dropzoneElement = event.target;
 
-        $("#bochechaEsquerda").css("fill", $scope.colorBlush);
-        $("#bochechaEsquerda").css("opacity", 0.13);
+        $(draggableElement).removeClass("batomGlowPink").removeClass("batomGlowOrange").removeClass("batomGlowRed").removeClass("batomGlowPurple");
+
+        var classEffect = $($(dropzoneElement)[0].outerHTML).data("effect");
+        $scope.colorBatom = $($(dropzoneElement)[0].outerHTML).data("color");
+
+        $(draggableElement).addClass(classEffect);
 
       },
       ondragleave: function (event) { console.log("Drag Leave"); },
@@ -181,7 +195,88 @@ app.controller('EstudioMaquiagemCtrl', function($scope, $localStorage, $timeout,
     });
 
 
-  });
+    $scope.colorBlush = "";
+    $scope.colorBatom = "";
+
+    /**
+     * Drag Zone - Bochecha Esquerda
+     */
+    interact('.dropzoneBochechaEsquerda').dropzone({
+
+      accept:"#dragPincel",
+
+      ondragenter: function (event) {
+
+        if ( $scope.colorBlush != ""){
+          $("#bochechaEsquerda").css("fill", $scope.colorBlush);
+          $("#bochechaEsquerda").css("opacity", 0.13);
+        }
+
+
+      },
+      ondragleave: function (event) {  },
+      ondrop: function (event) { }
+    });
+
+
+    /**
+     * Drag Zone - Bochecha Direita
+     */
+    interact('.dropzoneBochechaDireita').dropzone({
+
+      accept:"#dragPincel",
+      ondragenter: function (event) {
+
+        if ( $scope.colorBlush != "") {
+          $("#bochechaDireita").css("fill", $scope.colorBlush);
+          $("#bochechaDireita").css("opacity", 0.13);
+        }
+
+      },
+      ondragleave: function (event) {  },
+      ondrop: function (event) { }
+    });
+
+
+
+    /**
+     * Drag Zone - Labio Cima
+     */
+    interact('.dropzoneLabio').dropzone({
+
+      accept:"#dragBatom",
+      ondragenter: function (event) {
+
+        if ( $scope.colorBatom != "") {
+          $("#labioCima").css("fill", $scope.colorBatom);
+          $("#labioBaixo").css("fill", $scope.colorBatom);
+        }
+
+      },
+      ondragleave: function (event) {  },
+      ondrop: function (event) { }
+    });
+
+
+    /**
+     * Drag Zone - Labio Baixo
+     */
+    /*
+    interact('.dropzoneLabioBaixo').dropzone({
+      ondragenter: function (event) {
+
+        if ( $scope.colorBatom != "") {
+          $("#labioBaixo").css("fill", $scope.colorBatom);
+        }
+
+      },
+      ondragleave: function (event) {  },
+      ondrop: function (event) { }
+    });*/
+
+  }
+
+
 
   /**
    * Collection Acessórios do Menu
@@ -189,13 +284,14 @@ app.controller('EstudioMaquiagemCtrl', function($scope, $localStorage, $timeout,
    */
   $scope.collectionAcessorios = [
     {id:1, nome:"Blush", image:"img/acessorios/blushOpen.png"},
-    {id:2, nome:"Base", image:"img/acessorios/baseOpen.png"},
+    {id:2, nome:"Batom", image:"img/acessorios/batomOpen.png"},
     {id:3, nome:"Pincel", image:"img/acessorios/pincelOpen.png"},
     {id:4, nome:"Base", image:"img/acessorios/baseOpen.png"},
     {id:5, nome:"Blush", image:"img/acessorios/blushOpen.png"}
   ];
 
-  $scope.blushVisible = false;
+  $scope.blushVisible = true;
+  $scope.batomVisible = true;
 
   /**
    * Método para Ap
@@ -211,14 +307,33 @@ app.controller('EstudioMaquiagemCtrl', function($scope, $localStorage, $timeout,
       $scope.blushVisible = false;
 
     }
+    else  if ($scope.batomVisible && acessorio.nome == "Batom"){
+
+      $("#BATOM_ROSA").animate({opacity: '1'},1000);
+      $("#BATOM_LARANJA").animate({opacity: '1'},1100);
+      $("#BATOM_VERMELHO").animate({opacity: '1'},1200);
+      $("#BATOM_ROXO").animate({opacity: '1'},1300);
+      $("#BATOM").animate({opacity: '1'},1400);
+      $scope.batomVisible = false;
+
+    }
     else{
+
       $("#BLUSH_ROSA").animate({opacity: '0'},1400);
       $("#BLUSH_LARANJA").animate({opacity: '0'},1200);
       $("#BLUSH_VERMELHO").animate({opacity: '0'},1000);
       $("#PINCEL").animate({opacity: '0'},1000);
       $scope.blushVisible = true;
 
+      $("#BATOM_ROSA").animate({opacity: '0'},1000);
+      $("#BATOM_LARANJA").animate({opacity: '0'},1100);
+      $("#BATOM_VERMELHO").animate({opacity: '0'},1200);
+      $("#BATOM_ROXO").animate({opacity: '0'},1300);
+      $("#BATOM").animate({opacity: '0'},1400);
+      $scope.batomVisible = true;
+
     }
+
 
   };
 
