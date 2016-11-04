@@ -73,21 +73,21 @@
 
   width: 120%;
   position: absolute;
-  left: -9%;
+  left: -12%;
   /*z-index: 300;*/
 }
 
 .cabeloPreto{
   width: 100%;
   position: absolute;
-  left: 6px;
-  top: 19px;
+  left: -3px;
+  top: 31px;
 }
 
 .cabeloCastanho{
   width: 94%;
   position: absolute;
-  left: 17px;
+  left: 7px;
   top: 12px;
   /*z-index: 300;*/
 }
@@ -95,7 +95,7 @@
 .cabeloRuivo{
   width: 87%;
   position: absolute;
-  left: 33px;
+  left: 23px;
   top: 28px;
   /*z-index: 300;*/
 }
