@@ -1,8 +1,8 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.ionicframework.starter" version="1.0.2" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>Doll Game</name>
+<widget id="br.com.usc.atha" version="1.0.2" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>ÁTHA</name>
     <description>
-        Doll Game
+      ÁTHA
     </description>
     <author email="robson.ux@gmail.com" href="http://robsonfernandes.net/">
       Robson Fernandes , Lumena Milani, Elisa Marques, Elvio Silva
