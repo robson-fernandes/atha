@@ -14,6 +14,37 @@
   height: 80px;
 }
 
+.batom{
+  width: 40px;
+  height: 45px;
+}
+
+.td{
+  width: 100px;
+}
+
+.pad-20{
+  padding-left: 2%;
+  padding-right: 2%;
+}
+/**
+ * BALCAO
+ */
+
+.container {
+  position: absolute;
+  background-color: #a2a2a2;
+  height: 64px;
+  border-bottom-left-radius: 84%;
+  border-bottom-right-radius: 80%;
+  width: 100%;
+  box-shadow: 1px 12px 5px #464646;
+  left: 0px;right: 0px;
+  bottom: 0px;
+}
+/**
+* *************************************************
+*/
 
 /**
  * Tela - Inicial

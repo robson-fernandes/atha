@@ -117,6 +117,34 @@ app.controller('EstudioMaquiagemCtrl', function($scope, $localStorage, $timeout,
 
   $scope.createDragedElement = function(element){
 
+    interact(element)
+      .draggable({
+        inertia: true,
+        restrict: {
+          endOnly: true,
+          elementRect: { top: 0, left: 0, bottom: 1, right: 1 }
+        },
+        autoScroll: true,
+        onmove: dragMoveListener
+
+      });
+
+    function dragMoveListener (event) {
+      var target = event.target,
+        x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
+        y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
+
+      target.style.webkitTransform =
+        target.style.transform =
+          'translate(' + x + 'px, ' + y + 'px)';
+
+      target.setAttribute('data-x', x);
+      target.setAttribute('data-y', y);
+    }
+
+    window.dragMoveListener = dragMoveListener;
+
+    /*
     x = 0, y = 0;
     interact(element)
       .draggable({
@@ -130,7 +158,7 @@ app.controller('EstudioMaquiagemCtrl', function($scope, $localStorage, $timeout,
         inertia: true,
         restrict: {
           restriction: element.parentNode,
-          elementRect: { top: 0, left: 0, bottom: 1, right: 1 },
+          //elementRect: { top: 0, left: 0, bottom: 1, right: 1 },
           endOnly: true
         }
       })
@@ -142,6 +170,7 @@ app.controller('EstudioMaquiagemCtrl', function($scope, $localStorage, $timeout,
           event.target.style.transform =
             'translate(' + x + 'px, ' + y + 'px)';
       });
+      */
   },
 
   $scope.configDragAndDrop = function(){
@@ -166,6 +195,15 @@ app.controller('EstudioMaquiagemCtrl', function($scope, $localStorage, $timeout,
         var classEffect = $($(dropzoneElement)[0].outerHTML).data("effect");
         $scope.colorBlush = $($(dropzoneElement)[0].outerHTML).data("color");
 
+        if (classEffect == "blushGlowPink"){
+          $scope.voiceSpeech("Blãche rosa!");
+        }
+        else if (classEffect == "blushGlowOrange"){
+          $scope.voiceSpeech("Blãche laranja!");
+        }
+        else if (classEffect == "blushGlowRed"){
+          $scope.voiceSpeech("Blãche vermelho!");
+        }
         $(draggableElement).addClass(classEffect);
 
       },
@@ -191,7 +229,30 @@ app.controller('EstudioMaquiagemCtrl', function($scope, $localStorage, $timeout,
 
       },
       ondragleave: function (event) { console.log("Drag Leave"); },
-      ondrop: function (event) { console.log("Drag Drop"); }
+      ondrop: function (event) {
+
+        var draggableElement = event.relatedTarget,
+          dropzoneElement = event.target;
+
+        var classEffect = $($(dropzoneElement)[0].outerHTML).data("effect");
+        $scope.colorBatom = $($(dropzoneElement)[0].outerHTML).data("color");
+
+        if (classEffect == "batomGlowPink"){
+          $scope.voiceSpeech("Batom rosa!");
+        }
+        else if (classEffect == "batomGlowOrange"){
+          $scope.voiceSpeech("Batom laranja!");
+        }
+        else if (classEffect == "batomGlowRed"){
+          $scope.voiceSpeech("Batom vermelho!");
+        }
+        else if (classEffect == "batomGlowPurple"){
+          $scope.voiceSpeech("Batom roxo!");
+        }
+
+        console.log("Drag Drop");
+
+      }
     });
 
 
@@ -204,7 +265,7 @@ app.controller('EstudioMaquiagemCtrl', function($scope, $localStorage, $timeout,
     interact('.dropzoneBochechaEsquerda').dropzone({
 
       accept:"#dragPincel",
-
+      overlap: 0.10,
       ondragenter: function (event) {
 
         if ( $scope.colorBlush != ""){
@@ -225,6 +286,7 @@ app.controller('EstudioMaquiagemCtrl', function($scope, $localStorage, $timeout,
     interact('.dropzoneBochechaDireita').dropzone({
 
       accept:"#dragPincel",
+      overlap: 0.10,
       ondragenter: function (event) {
 
         if ( $scope.colorBlush != "") {
@@ -237,36 +299,65 @@ app.controller('EstudioMaquiagemCtrl', function($scope, $localStorage, $timeout,
         }
 
       },
-      ondragleave: function (event) {  },
-      ondrop: function (event) { }
+      ondragleave: function (event) {  console.log("Drag Leave");},
+      ondrop: function (event) { console.log("Drag Drop");}
     });
 
 
-
+    $scope.labioTotal = 0;
     /**
      * Drag Zone - Labio Cima
      */
-    interact('.dropzoneLabio').dropzone({
+    interact('.dropzoneLabioCima').dropzone({
 
       accept:"#dragBatom",
+      overlap: 0.10,
       ondragenter: function (event) {
 
         if ( $scope.colorBatom != "") {
           $("#labioCima").css("fill", $scope.colorBatom);
-          $("#labioBaixo").css("fill", $scope.colorBatom);
-
+          $scope.labioTotal = $scope.labioTotal  + 1;
 
           $timeout(function () {
-            $scope.voiceSpeech("Este batom ficou lindo em você!");
+            if ($scope.labioTotal > 2) {
+              $scope.voiceSpeech("Este batom ficou lindo em você!");
+              $scope.labioTotal = 0;
+            }
+          }, 500);
+        }
+
+      },
+      ondragleave: function (event) { console.log("Drag Leave");  },
+      ondrop: function (event) {  console.log("Drag Drop"); }
+    });
+
+    /**
+     * Drag Zone - Labio Baixo
+     */
+    interact('.dropzoneLabioBaixo').dropzone({
+
+      accept:"#dragBatom",
+      overlap: 0.10,
+      ondragenter: function (event) {
+
+        if ( $scope.colorBatom != "") {
+
+          $("#labioBaixo").css("fill", $scope.colorBatom);
+          $scope.labioTotal = $scope.labioTotal  + 1;
+
+          $timeout(function () {
+            if ($scope.labioTotal > 2) {
+              $scope.voiceSpeech("Este batom ficou lindo em você!");
+              $scope.labioTotal = 0;
+            }
           }, 500);
 
         }
 
       },
-      ondragleave: function (event) {  },
-      ondrop: function (event) { }
+      ondragleave: function (event) { console.log("Drag Leave");  },
+      ondrop: function (event) {  console.log("Drag Drop"); }
     });
-
 
   }
 
